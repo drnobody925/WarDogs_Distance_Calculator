@@ -42,7 +42,7 @@ namespace {
 
 constexpr int resize_margin = 8;
 
-QSize minimum_size(bool vehicle) { return vehicle ? QSize{350, 96} : QSize{320, 360}; }
+QSize minimum_size(bool vehicle) { return vehicle ? QSize{350, 96} : QSize{320, 320}; }
 QSize default_size(bool vehicle) { return vehicle ? QSize{420, 116} : QSize{430, 380}; }
 
 class JumpSlider final : public QSlider {

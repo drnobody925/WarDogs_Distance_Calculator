@@ -8,10 +8,10 @@
 #include <dwmapi.h>
 
 CrosshairOverlay::CrosshairOverlay(QWidget* parent) : QWidget(parent) {
-    setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint |
-                   Qt::BypassWindowManagerHint);
+    setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_TransparentForMouseEvents);
+    setAttribute(Qt::WA_ShowWithoutActivating);
     setWindowTitle(QStringLiteral("War Dogs Crosshair"));
 
     QScreen* screen = QApplication::primaryScreen();
@@ -25,6 +25,8 @@ CrosshairOverlay::CrosshairOverlay(QWidget* parent) : QWidget(parent) {
     }
 
     const HWND hwnd = reinterpret_cast<HWND>(winId());
+    const LONG_PTR ex_style = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
+    SetWindowLongPtr(hwnd, GWL_EXSTYLE, ex_style | WS_EX_TRANSPARENT | WS_EX_LAYERED | WS_EX_NOACTIVATE);
     SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0,
                  SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
 }
@@ -32,10 +34,10 @@ CrosshairOverlay::CrosshairOverlay(QWidget* parent) : QWidget(parent) {
 void CrosshairOverlay::showEvent(QShowEvent* event) {
     QWidget::showEvent(event);
     const HWND hwnd = reinterpret_cast<HWND>(winId());
+    const LONG_PTR ex_style = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
+    SetWindowLongPtr(hwnd, GWL_EXSTYLE, ex_style | WS_EX_TRANSPARENT | WS_EX_LAYERED | WS_EX_NOACTIVATE);
     SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0,
                  SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
-    raise();
-    activateWindow();
 }
 
 void CrosshairOverlay::set_gap(int gap_px) {

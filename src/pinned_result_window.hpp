@@ -97,7 +97,7 @@ private:
     Edges resize_edges_;
     QPoint resize_start_global_{};
     QRect resize_start_geometry_{};
-    std::map<bool, QSize> mode_sizes_{{false, {430, 78}}, {true, {420, 116}}};
+    std::map<bool, QSize> mode_sizes_{{false, {430, 380}}, {true, {420, 116}}};
     double font_scale_{1.0};
     bool applying_font_scale_{};
 };

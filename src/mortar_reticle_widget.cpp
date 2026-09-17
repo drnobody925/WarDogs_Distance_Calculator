@@ -11,7 +11,7 @@
 MortarReticleWidget::MortarReticleWidget(QWidget* parent) : QWidget(parent) {
     setMinimumHeight(300);
     setMaximumHeight(300);
-    setMinimumWidth(400);
+    setMinimumWidth(200);
 }
 
 double MortarReticleWidget::mil_for_distance(double distance_m) const {
